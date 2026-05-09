@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "RingBearerSpotted",
+  "namespace": "rotr",
+  "fields": [
+    {"name": "pathId", "type": "string"},
+    {"name": "turn", "type": "int"},
+    {"name": "timestamp", "type": "long"}
+  ]
+}

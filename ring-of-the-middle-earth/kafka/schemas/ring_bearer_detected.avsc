@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "RingBearerDetected",
+  "namespace": "rotr",
+  "fields": [
+    {"name": "regionId", "type": "string"},
+    {"name": "turn", "type": "int"},
+    {"name": "timestamp", "type": "long"}
+  ]
+}

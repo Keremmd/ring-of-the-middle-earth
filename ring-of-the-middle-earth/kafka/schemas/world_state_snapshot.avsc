@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "WorldStateSnapshot",
+  "namespace": "rotr",
+  "fields": [
+    {"name": "turn", "type": "int"},
+    {"name": "regions", "type": {"type": "array", "items": "string"}},
+    {"name": "units", "type": {"type": "array", "items": "string"}},
+    {"name": "timestamp", "type": "long"}
+  ]
+}

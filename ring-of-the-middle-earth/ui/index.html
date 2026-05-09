@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ring of the Middle Earth</title>
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════╗
+     ║  HEADER                                          ║
+     ╚══════════════════════════════════════════════════╝ -->
+<div id="header">
+  <h1>◎ &nbsp;Ring of the Middle Earth</h1>
+  <div id="header-info">
+    <div id="turn-badge"  class="hbadge">Turn —</div>
+    <div id="side-badge"  class="hbadge light">Free Peoples</div>
+    <div id="status-badge">
+      <div id="status-dot"></div>
+      <span id="status-text">Connecting…</span>
+    </div>
+    <button class="btn btn-start" id="start-btn" onclick="startGame()">Start Game</button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════╗
+     ║  APP                                             ║
+     ╚══════════════════════════════════════════════════╝ -->
+<div id="app">
+
+  <!-- ── LEFT: Units ── -->
+  <div class="panel" id="left-panel">
+    <div class="panel-hd">
+      <span class="panel-label">Your Units</span>
+      <span id="unit-count" style="font-size:.6rem;color:var(--c-text3);">0 units</span>
+    </div>
+    <div class="panel-scroll" id="unit-list">
+      <div class="empty-st">Waiting for game state…</div>
+    </div>
+  </div>
+
+  <!-- ── CENTER: Map ── -->
+  <div id="map-container">
+    <div id="map-svg-wrapper"></div>
+
+    <!-- Region popup -->
+    <div id="region-popup">
+      <div id="popup-name">—</div>
+      <div class="prow"><span class="pl">Control</span><span class="pv" id="popup-control">—</span></div>
+      <div class="prow"><span class="pl">Terrain</span><span class="pv" id="popup-terrain">—</span></div>
+      <div class="prow"><span class="pl">Threat</span> <span class="pv" id="popup-threat">—</span></div>
+      <div class="prow"><span class="pl">Units</span>  <span class="pv" id="popup-units">—</span></div>
+    </div>
+
+    <!-- Map controls -->
+    <div id="map-ctrls">
+      <button class="mc-btn" onclick="mapZoom(1.25)" title="Zoom in">+</button>
+      <button class="mc-btn" onclick="mapZoom(0.8)"  title="Zoom out">−</button>
+      <button class="mc-btn" onclick="mapReset()"    title="Reset">⌂</button>
+    </div>
+
+    <!-- Turn progress bar -->
+    <div id="tpbar"><div id="tpfill"></div></div>
+  </div>
+
+  <!-- ── RIGHT: Command ── -->
+  <div class="panel" id="right-panel">
+    <div class="panel-hd">
+      <span class="panel-label">Command Center</span>
+    </div>
+    <div class="panel-scroll">
+
+      <!-- Ring Bearer Tracker (Light) -->
+      <div id="rb-tracker" class="tracker light-only" style="display:none;">
+        <div class="tracker-ttl">🧙 Ring Bearer</div>
+        <div class="tracker-loc" id="rb-location">The Shire</div>
+        <div class="tracker-sub" id="rb-status">No route assigned</div>
+      </div>
+
+      <!-- Eye of Sauron (Dark) -->
+      <div id="detection-tracker" class="tracker shadow-tracker dark-only" style="display:none;">
+        <div class="tracker-ttl">👁 Eye of Sauron</div>
+        <div class="tracker-loc" id="last-detected">No detection yet</div>
+        <div class="tracker-sub">Last known position</div>
+      </div>
+
+      <!-- Order Form -->
+      <div class="order-box">
+        <div class="order-box-hd">
+          <span style="font-size:.9rem;color:var(--c-gold);">📜</span>
+          <span class="ob-unit empty" id="selected-unit-name">Select a unit →</span>
+        </div>
+        <div class="order-box-body">
+
+          <div>
+            <label class="flabel">Order Type</label>
+            <select class="fsel" id="order-type-select" onchange="onOrderTypeChange()">
+              <option value="">— Select —</option>
+              <option value="ASSIGN_ROUTE">Assign Route</option>
+              <option value="REDIRECT_UNIT">Redirect Unit</option>
+              <option value="ATTACK_REGION">Attack Region</option>
+              <option value="REINFORCE_REGION">Reinforce Region</option>
+              <option value="BLOCK_PATH">Block Path</option>
+              <option value="SEARCH_PATH">Search Path</option>
+              <option value="FORTIFY_REGION">Fortify Region</option>
+              <option value="MAIA_ABILITY">Maia Ability</option>
+              <option value="DEPLOY_NAZGUL">Deploy Nazgul</option>
+              <option value="DESTROY_RING">⚡ Destroy Ring</option>
+            </select>
+          </div>
+
+          <div id="route-input" style="display:none;">
+            <label class="flabel">Path IDs (comma-separated)</label>
+            <input class="finp" id="path-ids-input" placeholder="shire-to-bree, bree-to-rivendell…" />
+          </div>
+
+          <div id="target-region-input" style="display:none;">
+            <label class="flabel">Target Region</label>
+            <select class="fsel" id="target-region-select">
+              <option value="">— Select Region —</option>
+            </select>
+          </div>
+
+          <div id="target-path-input" style="display:none;">
+            <label class="flabel">Target Path</label>
+            <select class="fsel" id="target-path-select">
+              <option value="">— Select Path —</option>
+            </select>
+          </div>
+
+          <button class="btn btn-gold" onclick="submitOrder()" id="submit-btn" disabled>
+            Submit Order
+          </button>
+        </div>
+      </div>
+
+      <!-- Route Risk Analysis (Light) -->
+      <div id="route-analysis" class="analysis-box light-only" style="display:none;">
+        <div class="ab-hd">
+          <span class="ab-ttl">📊 Route Risk</span>
+          <button class="btn btn-ghost" onclick="fetchRouteAnalysis()">Refresh</button>
+        </div>
+        <div class="ab-body" id="route-list">
+          <div class="empty-st">No data yet</div>
+        </div>
+      </div>
+
+      <!-- Intercept Plans (Dark) -->
+      <div id="intercept-analysis" class="analysis-box dark-only" style="display:none;">
+        <div class="ab-hd">
+          <span class="ab-ttl">🗡 Intercept Plans</span>
+          <button class="btn btn-ghost" onclick="fetchInterceptAnalysis()">Refresh</button>
+        </div>
+        <div class="ab-body" id="intercept-list">
+          <div class="empty-st">No data yet</div>
+        </div>
+      </div>
+
+      <!-- Event Log -->
+      <div class="log-box">
+        <div class="log-hd">
+          <span class="log-ttl">Event Log</span>
+          <span class="log-cnt" id="event-count">0</span>
+        </div>
+        <div id="event-log"></div>
+      </div>
+
+    </div><!-- /panel-scroll -->
+  </div><!-- /right-panel -->
+
+</div><!-- /app -->
+
+<!-- WIN OVERLAY -->
+<div id="win-overlay">
+  <div id="win-box">
+    <div id="win-title">GAME OVER</div>
+    <div id="win-subtitle">The Ring has been decided.</div>
+    <button class="btn btn-gold" onclick="playAgain()" style="width:auto;padding:10px 36px;">
+      Play Again
+    </button>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toast-container"></div>
+
+<script src="game.js?v=7"></script>
+</body>
+</html>
