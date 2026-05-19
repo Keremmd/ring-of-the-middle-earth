@@ -23,6 +23,7 @@ let gameState = {
   paths: {},
   ringBearerRegion: '',
   selectedUnit: null,
+  eventHistory: [],
 };
 
 // Static game data
@@ -363,23 +364,69 @@ async function submitOrder() {
 }
 
 // ─── GAME CONTROLS ────────────────────────────────────────────────────────────
-async function startGame() {
+async function resetGame(options = {}) {
+  const { skipConfirm = false, message = 'Game reset — Turn 1' } = options;
+
+  if (!skipConfirm) {
+    const ok = confirm(
+      'Oyunu sıfırlamak istiyor musun?\n\nTur 1\'e döner, tüm emirler ve event log temizlenir. (Yeni sekme açınca da sunucudaki oyun devam eder — sıfırlamak için bunu kullan.)'
+    );
+    if (!ok) return;
+  }
+
+  document.getElementById('win-overlay')?.classList.remove('show');
+  gameState.gameOverShown = true;
+
   try {
     const res = await fetch(`${API_BASE}/game/start`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({mode: 'HVH'}),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode: 'HVH' }),
     });
-    if (res.ok) {
-      showToast('Game started!', 'success');
-      addEvent('Game started — HvH mode', 'gold');
-      document.getElementById('start-btn').disabled = true;
-    } else {
-      showToast('Failed to start game', 'danger');
+    if (!res.ok) {
+      showToast('Reset failed', 'danger');
+      gameState.gameOverShown = false;
+      return;
     }
   } catch (e) {
     showToast('Network error', 'danger');
+    gameState.gameOverShown = false;
+    return;
   }
+
+  gameState.turn = 0;
+  gameState.status = 'ACTIVE';
+  gameState.winner = '';
+  gameState.units = {};
+  gameState.regions = {};
+  gameState.paths = {};
+  gameState.ringBearerRegion = '';
+  gameState.selectedUnit = null;
+  gameState.eventHistory = [];
+
+  document.getElementById('event-log').innerHTML = '';
+  document.getElementById('win-event-log').innerHTML = '';
+  document.getElementById('win-event-count').textContent = '0 events';
+  document.getElementById('unit-list').innerHTML = '<div class="empty-st">Waiting for game state…</div>';
+  const fill = document.getElementById('turn-progress-fill');
+  if (fill) fill.style.width = '0%';
+  document.getElementById('turn-badge').textContent = 'Turn 1 / ' + gameState.maxTurns;
+  document.getElementById('event-count').textContent = '0';
+  document.getElementById('start-btn').disabled = false;
+
+  addEvent(message, 'gold');
+  showToast('Oyun sıfırlandı — Turn 1', 'success');
+
+  setTimeout(() => {
+    gameState.gameOverShown = false;
+    fetchGameState();
+  }, 1500);
+}
+
+async function startGame() {
+  await resetGame({ skipConfirm: true, message: 'Game started — HvH mode' });
+  document.getElementById('start-btn').disabled = true;
+  showToast('Game started!', 'success');
 }
 
 // ─── STATE FETCHING ───────────────────────────────────────────────────────────
@@ -398,10 +445,15 @@ function applyGameState(data) {
   if (!data) return;
 
   gameState.turn = data.turn || 0;
+  gameState.status = data.status || gameState.status;
+  gameState.winner = data.winner || '';
   if (data.maxTurns) gameState.maxTurns = data.maxTurns;
   if (data.turnDurationSeconds) gameState.turnDurationSeconds = data.turnDurationSeconds;
   if (data.hiddenUntilTurn != null) gameState.hiddenUntilTurn = data.hiddenUntilTurn;
-  document.getElementById('turn-badge').textContent = `Turn ${gameState.turn} / ${gameState.maxTurns}`;
+
+  let turnLabel = `Turn ${gameState.turn} / ${gameState.maxTurns}`;
+  if (data.status === 'FINISHED') turnLabel += ' · ENDED';
+  document.getElementById('turn-badge').textContent = turnLabel;
 
   const pct = Math.min((gameState.turn / gameState.maxTurns) * 100, 100);
   const fill = document.getElementById('turn-progress-fill');
@@ -626,47 +678,14 @@ function handleGameOver(event) {
     subtitle.textContent = `The Ring Bearer has been caught! ${causeText} (Turn ${turn})`;
   }
 
+  addEvent(`GAME OVER — ${winner} wins! Cause: ${cause || '—'}`, 'gold');
+  renderWinEventLog();
   document.getElementById('win-overlay').classList.add('show');
-  addEvent(`GAME OVER — ${winner} wins! Cause: ${cause}`, 'gold');
+  scrollEventLogToBottom();
 }
 
 async function playAgain() {
-  // Hide overlay immediately and lock it from re-appearing during reset
-  document.getElementById('win-overlay').classList.remove('show');
-  gameState.gameOverShown = true;  // keep locked
-
-  // Reset server game state via /game/start
-  try {
-    await fetch(`${API_BASE}/game/start`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mode: 'HVH' }),
-    });
-  } catch (e) { /* ignore */ }
-
-  // Reset client state
-  gameState.turn = 0;
-  gameState.status = 'WAITING';
-  gameState.units = {};
-  gameState.regions = {};
-  gameState.paths = {};
-  gameState.ringBearerRegion = '';
-  gameState.selectedUnit = null;
-
-  // Clear UI
-  document.getElementById('event-log').innerHTML = '';
-  document.getElementById('unit-list').innerHTML = '';
-  const fill = document.getElementById('turn-progress-fill');
-  if (fill) fill.style.width = '0%';
-  document.getElementById('turn-badge').textContent = 'Turn —';
-
-  addEvent('New game started — waiting for first turn...', 'success');
-
-  // Wait 2s for server cache to clear, then unlock overlay and fetch
-  setTimeout(() => {
-    gameState.gameOverShown = false;
-    fetchGameState();
-  }, 2000);
+  await resetGame({ skipConfirm: true, message: 'New game — Play Again' });
 }
 
 // ─── ANALYSIS ─────────────────────────────────────────────────────────────────
@@ -732,16 +751,51 @@ function renderInterceptAnalysis(data) {
 }
 
 // ─── UTILITIES ────────────────────────────────────────────────────────────────
-function addEvent(message, type = 'info') {
+function formatEventEntry(time, message, type) {
+  const el = document.createElement('div');
+  el.className = `ev ${type}`;
+  el.innerHTML = `<span class="ev-t">${time}</span>${message}`;
+  return el;
+}
+
+function renderWinEventLog() {
+  const container = document.getElementById('win-event-log');
+  const countEl = document.getElementById('win-event-count');
+  if (!container) return;
+  container.innerHTML = '';
+  const history = gameState.eventHistory || [];
+  if (history.length === 0) {
+    container.innerHTML = '<div class="empty-st">No events recorded</div>';
+    countEl.textContent = '0 events';
+    return;
+  }
+  history.forEach(({ time, message, type }) => {
+    container.appendChild(formatEventEntry(time, message, type));
+  });
+  countEl.textContent = `${history.length} event${history.length === 1 ? '' : 's'}`;
+  container.scrollTop = container.scrollHeight;
+}
+
+function scrollEventLogToBottom() {
   const log = document.getElementById('event-log');
-  const entry = document.createElement('div');
-  entry.className = `ev ${type}`;
-  const time = new Date().toLocaleTimeString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'});
-  entry.innerHTML = `<span class="ev-t">${time}</span>${message}`;
-  log.prepend(entry);
-  while (log.children.length > 50) log.removeChild(log.lastChild);
-  const cnt = document.getElementById('event-count');
-  if (cnt) cnt.textContent = log.children.length;
+  if (log) log.scrollTop = log.scrollHeight;
+}
+
+function addEvent(message, type = 'info') {
+  const time = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  gameState.eventHistory.push({ time, message, type });
+
+  const log = document.getElementById('event-log');
+  if (log) {
+    log.prepend(formatEventEntry(time, message, type));
+    const cnt = document.getElementById('event-count');
+    if (cnt) cnt.textContent = gameState.eventHistory.length;
+  }
+
+  // Keep win overlay log in sync if game already ended
+  if (document.getElementById('win-overlay')?.classList.contains('show')) {
+    renderWinEventLog();
+  }
 }
 
 function showToast(message, type = 'info') {

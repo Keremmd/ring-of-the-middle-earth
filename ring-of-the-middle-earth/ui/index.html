@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ring of the Middle Earth</title>
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
@@ -20,6 +20,7 @@
       <div id="status-dot"></div>
       <span id="status-text">Connecting…</span>
     </div>
+    <button class="btn btn-start" id="reset-btn" onclick="resetGame()" title="Sunucudaki oyunu sıfırla (Turn 1)">Reset Game</button>
     <button class="btn btn-start" id="start-btn" onclick="startGame()">Start Game</button>
   </div>
 </div>
@@ -173,18 +174,25 @@
 
 <!-- WIN OVERLAY -->
 <div id="win-overlay">
-  <div id="win-box">
-    <div id="win-title">GAME OVER</div>
-    <div id="win-subtitle">The Ring has been decided.</div>
-    <button class="btn btn-gold" onclick="playAgain()" style="width:auto;padding:10px 36px;">
-      Play Again
-    </button>
+  <div class="win-panel">
+    <div id="win-box">
+      <div id="win-title">GAME OVER</div>
+      <div id="win-subtitle">The Ring has been decided.</div>
+    </div>
+    <div class="win-log-section">
+      <div class="win-log-hd">
+        <span>Game Event Log</span>
+        <span id="win-event-count">0 events</span>
+      </div>
+      <div id="win-event-log"></div>
+    </div>
+    <button class="btn btn-gold win-play-again" onclick="playAgain()">Play Again</button>
   </div>
 </div>
 
 <!-- TOASTS -->
 <div id="toast-container"></div>
 
-<script src="game.js?v=8"></script>
+<script src="game.js?v=10"></script>
 </body>
 </html>
