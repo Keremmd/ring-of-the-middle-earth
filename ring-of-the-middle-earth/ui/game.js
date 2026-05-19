@@ -15,6 +15,9 @@ const IS_LIGHT = PLAYER_ID === 'light' || PLAYER_ID === 'free-peoples' || PLAYER
 let gameState = {
   turn: 0,
   status: 'WAITING',
+  maxTurns: 40,
+  turnDurationSeconds: 60,
+  hiddenUntilTurn: 3,
   units: {},
   regions: {},
   paths: {},
@@ -395,11 +398,12 @@ function applyGameState(data) {
   if (!data) return;
 
   gameState.turn = data.turn || 0;
-  document.getElementById('turn-badge').textContent = `Turn ${gameState.turn}`;
+  if (data.maxTurns) gameState.maxTurns = data.maxTurns;
+  if (data.turnDurationSeconds) gameState.turnDurationSeconds = data.turnDurationSeconds;
+  if (data.hiddenUntilTurn != null) gameState.hiddenUntilTurn = data.hiddenUntilTurn;
+  document.getElementById('turn-badge').textContent = `Turn ${gameState.turn} / ${gameState.maxTurns}`;
 
-  // Animate turn progress (60s cycle)
-  const maxTurns = 40;
-  const pct = Math.min((gameState.turn / maxTurns) * 100, 100);
+  const pct = Math.min((gameState.turn / gameState.maxTurns) * 100, 100);
   const fill = document.getElementById('turn-progress-fill');
   if (fill) fill.style.width = pct + '%';
 
@@ -608,7 +612,7 @@ function handleGameOver(event) {
   if (winner === 'DRAW') {
     title.textContent = 'DRAW';
     title.style.color = 'var(--accent-neutral)';
-    subtitle.textContent = `40 turns passed with no winner.`;
+    subtitle.textContent = `${gameState.maxTurns} turns passed with no winner.`;
   } else if (winner === 'FREE_PEOPLES') {
     title.textContent = IS_LIGHT ? '🎉 VICTORY!' : '💀 DEFEATED';
     title.style.color = IS_LIGHT ? 'var(--success)' : 'var(--danger)';

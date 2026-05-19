@@ -159,12 +159,15 @@ func (h *Handler) GetGameState(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"turn":    snap.Turn,
-		"status":  snap.Status,
-		"winner":  snap.Winner,
-		"units":   units,
-		"regions": snap.Regions,
-		"paths":   snap.Paths,
+		"turn":                 snap.Turn,
+		"status":               snap.Status,
+		"winner":               snap.Winner,
+		"maxTurns":             h.GameCfg.MaxTurns,
+		"turnDurationSeconds":  h.GameCfg.TurnDurationSec,
+		"hiddenUntilTurn":      h.GameCfg.HiddenUntilTurn,
+		"units":                units,
+		"regions":              snap.Regions,
+		"paths":                snap.Paths,
 	})
 }
 

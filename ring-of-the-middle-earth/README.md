@@ -13,6 +13,16 @@ This implementation uses Go goroutines and Kafka KTable state stores as the dist
 - **Confluent Schema Registry** for Avro schema evolution
 - **Vanilla JS + SSE** browser UI — no React/Vue/Angular
 
+## Game timing (per project spec)
+
+| Setting | Value |
+|---------|--------|
+| Turn duration | 60 seconds |
+| Maximum turns | 40 (draw if no winner) |
+| Detection hidden | Turns 1–3 |
+
+Typical game length: about **15–25 minutes**; maximum **40 minutes** before a draw.
+
 ## Quick Start
 
 ```bash
