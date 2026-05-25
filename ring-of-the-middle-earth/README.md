@@ -2,6 +2,9 @@
 
 A browser-based, turn-based strategy game backed by a distributed system.
 
+> **Hoca sunumu / PDF rapor (oyun + mimari birleşik):** [RAPOR_README.md](./RAPOR_README.md) — 18 bölümlük içindekiler, tam mimari (`ARCHITECTURE.md` dahil), reflection, rubrik, **28 görsel** rehberi.  
+> Kısa mimari özet: [ARCHITECTURE.md](./ARCHITECTURE.md)
+
 ## Technology Choice: Option B — Go + Kafka
 
 This implementation uses Go goroutines and Kafka KTable state stores as the distributed game engine.

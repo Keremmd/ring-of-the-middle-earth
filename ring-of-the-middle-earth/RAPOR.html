@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RAPOR_README</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css" />
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a
+href="#ring-of-the-middle-earth-proje-raporu-mimari-belge-ve-sunum-kılavuzu"
+id="toc-ring-of-the-middle-earth-proje-raporu-mimari-belge-ve-sunum-kılavuzu">Ring
+of the Middle Earth — Proje Raporu, Mimari Belge ve Sunum Kılavuzu</a>
+<ul>
+<li><a href="#içindekiler" id="toc-içindekiler">İçindekiler</a>
+<ul>
+<li><a href="#bölüm-a-oyun-ve-proje-özeti"
+id="toc-bölüm-a-oyun-ve-proje-özeti">Bölüm A — Oyun ve Proje
+Özeti</a></li>
+<li><a href="#bölüm-b-sistem-mimarisi-architecture"
+id="toc-bölüm-b-sistem-mimarisi-architecture">Bölüm B — Sistem Mimarisi
+(Architecture)</a></li>
+<li><a href="#bölüm-c-uygulama-ve-operasyon"
+id="toc-bölüm-c-uygulama-ve-operasyon">Bölüm C — Uygulama ve
+Operasyon</a></li>
+<li><a href="#ekler" id="toc-ekler">Ekler</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#bölüm-a-oyun-ve-proje-özeti-1"
+id="toc-bölüm-a-oyun-ve-proje-özeti-1">Bölüm A — Oyun ve Proje Özeti</a>
+<ul>
+<li><a href="#özet-ve-proje-hedefi" id="toc-özet-ve-proje-hedefi">1.
+Özet ve Proje Hedefi</a></li>
+<li><a href="#oyun-konsepti-ve-kurallar"
+id="toc-oyun-konsepti-ve-kurallar">2. Oyun Konsepti ve Kurallar</a>
+<ul>
+<li><a href="#taraflar" id="toc-taraflar">2.1 Taraflar</a></li>
+<li><a href="#kazanma-koşulları" id="toc-kazanma-koşulları">2.2 Kazanma
+koşulları</a></li>
+<li><a href="#bilgi-asimetrisi-kritik-gereksinim"
+id="toc-bilgi-asimetrisi-kritik-gereksinim">2.3 Bilgi asimetrisi (kritik
+gereksinim)</a></li>
+<li><a href="#harita-ve-dört-kanonik-rota"
+id="toc-harita-ve-dört-kanonik-rota">2.4 Harita ve dört kanonik
+rota</a></li>
+<li><a href="#birimler-ve-emirler" id="toc-birimler-ve-emirler">2.5
+Birimler ve emirler</a></li>
+<li><a href="#tur-işleme-13-adım" id="toc-tur-işleme-13-adım">2.6 Tur
+işleme — 13 adım</a></li>
+</ul></li>
+<li><a href="#oyun-süresi-ve-tempo" id="toc-oyun-süresi-ve-tempo">3.
+Oyun Süresi ve Tempo</a></li>
+</ul></li>
+<li><a href="#bölüm-b-sistem-mimarisi-architecture-1"
+id="toc-bölüm-b-sistem-mimarisi-architecture-1">Bölüm B — Sistem
+Mimarisi (Architecture)</a>
+<ul>
+<li><a href="#sistem-diyagramı" id="toc-sistem-diyagramı">4. Sistem
+Diyagramı</a>
+<ul>
+<li><a href="#uygulama-notu-demo-kararı"
+id="toc-uygulama-notu-demo-kararı">Uygulama notu (demo kararı)</a></li>
+</ul></li>
+<li><a href="#goroutine-mimarisi-ve-kanallar"
+id="toc-goroutine-mimarisi-ve-kanallar">5. Goroutine Mimarisi ve
+Kanallar</a>
+<ul>
+<li><a href="#kanal-özeti" id="toc-kanal-özeti">Kanal özeti</a></li>
+</ul></li>
+<li><a href="#kafka-mimarisi" id="toc-kafka-mimarisi">6. Kafka
+Mimarisi</a>
+<ul>
+<li><a href="#topic-tablosu-10-topic"
+id="toc-topic-tablosu-10-topic">6.1 Topic tablosu (10 topic)</a></li>
+<li><a href="#producer-consumer-diyagramı"
+id="toc-producer-consumer-diyagramı">6.2 Producer / Consumer
+diyagramı</a></li>
+<li><a href="#topology-1-order-validation-8-kural"
+id="toc-topology-1-order-validation-8-kural">6.3 Topology 1 — Order
+Validation (8 kural)</a></li>
+<li><a href="#topology-2-route-risk-enrichment"
+id="toc-topology-2-route-risk-enrichment">6.4 Topology 2 — Route Risk
+Enrichment</a></li>
+<li><a href="#avro-ve-şema-evrimi" id="toc-avro-ve-şema-evrimi">6.5 Avro
+ve şema evrimi</a></li>
+</ul></li>
+<li><a href="#bilgi-gizleme-eventrouter-ve-worldstatecache"
+id="toc-bilgi-gizleme-eventrouter-ve-worldstatecache">7. Bilgi Gizleme:
+EventRouter ve WorldStateCache</a>
+<ul>
+<li><a href="#eventrouter-tek-enforcement-noktası"
+id="toc-eventrouter-tek-enforcement-noktası">7.1 EventRouter (tek
+enforcement noktası)</a></li>
+<li><a href="#worldstatecache" id="toc-worldstatecache">7.2
+WorldStateCache</a></li>
+</ul></li>
+<li><a href="#config-driven-tasarım" id="toc-config-driven-tasarım">8.
+Config-Driven Tasarım</a></li>
+<li><a href="#hata-toleransı-ve-exactly-once"
+id="toc-hata-toleransı-ve-exactly-once">9. Hata Toleransı ve
+Exactly-Once</a>
+<ul>
+<li><a href="#kafka-consumer-group-option-b"
+id="toc-kafka-consumer-group-option-b">9.1 Kafka Consumer Group (Option
+B)</a></li>
+<li><a href="#ktable-state-tasarım-hedefi"
+id="toc-ktable-state-tasarım-hedefi">9.2 KTable / state (tasarım
+hedefi)</a></li>
+<li><a href="#gameover-exactly-once" id="toc-gameover-exactly-once">9.3
+GameOver — exactly once</a></li>
+</ul></li>
+<li><a href="#paradigma-gerekçesi-go-kafka-vs-akka"
+id="toc-paradigma-gerekçesi-go-kafka-vs-akka">10. Paradigma Gerekçesi:
+Go + Kafka vs Akka</a>
+<ul>
+<li><a href="#neden-go-kafka-bu-probleme-uygun"
+id="toc-neden-go-kafka-bu-probleme-uygun">10.1 Neden Go + Kafka bu
+probleme uygun?</a></li>
+<li><a href="#go-ile-gerçekten-zor-olan"
+id="toc-go-ile-gerçekten-zor-olan">10.2 Go ile gerçekten zor
+olan</a></li>
+<li><a href="#akka-en-zor-iki-parçayı-nasıl-çözerdi"
+id="toc-akka-en-zor-iki-parçayı-nasıl-çözerdi">10.3 Akka en zor iki
+parçayı nasıl çözerdi?</a></li>
+<li><a href="#karşılaştırma-tablosu" id="toc-karşılaştırma-tablosu">10.4
+Karşılaştırma tablosu</a></li>
+</ul></li>
+<li><a href="#yansıma-reflection" id="toc-yansıma-reflection">11.
+Yansıma (Reflection)</a></li>
+</ul></li>
+<li><a href="#bölüm-c-uygulama-ve-operasyon-1"
+id="toc-bölüm-c-uygulama-ve-operasyon-1">Bölüm C — Uygulama ve
+Operasyon</a>
+<ul>
+<li><a href="#uygulama-detayları-ve-dizin-yapısı"
+id="toc-uygulama-detayları-ve-dizin-yapısı">12. Uygulama Detayları ve
+Dizin Yapısı</a>
+<ul>
+<li><a href="#http-api" id="toc-http-api">HTTP API</a></li>
+<li><a href="#ui-özellikleri" id="toc-ui-özellikleri">UI
+özellikleri</a></li>
+</ul></li>
+<li><a href="#kurulum-çalıştırma-ve-demo-senaryoları"
+id="toc-kurulum-çalıştırma-ve-demo-senaryoları">13. Kurulum, Çalıştırma
+ve Demo Senaryoları</a>
+<ul>
+<li><a href="#demo-15-dk-5-dk-qa-40" id="toc-demo-15-dk-5-dk-qa-40">Demo
+— 15 dk + 5 dk Q&amp;A (§40)</a></li>
+</ul></li>
+<li><a href="#değerlendirme-rubriği" id="toc-değerlendirme-rubriği">14.
+Değerlendirme Rubriği</a>
+<ul>
+<li><a href="#kafka-30-puan" id="toc-kafka-30-puan">Kafka — 30
+puan</a></li>
+<li><a href="#option-b-go-70-puan" id="toc-option-b-go-70-puan">Option B
+— Go — 70 puan</a></li>
+</ul></li>
+<li><a href="#karşılaşılan-zorluklar-ve-tasarım-kararları"
+id="toc-karşılaşılan-zorluklar-ve-tasarım-kararları">15. Karşılaşılan
+Zorluklar ve Tasarım Kararları</a></li>
+<li><a href="#sonuç-ve-gelecek-iyileştirmeler"
+id="toc-sonuç-ve-gelecek-iyileştirmeler">16. Sonuç ve Gelecek
+İyileştirmeler</a></li>
+<li><a href="#llm-kullanım-günlüğü" id="toc-llm-kullanım-günlüğü">17.
+LLM Kullanım Günlüğü</a></li>
+<li><a href="#rapor-görsel-rehberi" id="toc-rapor-görsel-rehberi">18.
+Rapor Görsel Rehberi</a>
+<ul>
+<li><a href="#önerilen-pdf-sayfa-planı-1822-sayfa"
+id="toc-önerilen-pdf-sayfa-planı-1822-sayfa">Önerilen PDF sayfa planı
+(≈18–22 sayfa)</a></li>
+<li><a href="#görsel-envanteri-28-öneri"
+id="toc-görsel-envanteri-28-öneri">Görsel envanteri (28 öneri)</a></li>
+<li><a href="#kapak-şablonu" id="toc-kapak-şablonu">Kapak
+şablonu</a></li>
+<li><a href="#pdf-oluşturma" id="toc-pdf-oluşturma">PDF
+oluşturma</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1
+id="ring-of-the-middle-earth-proje-raporu-mimari-belge-ve-sunum-kılavuzu">Ring
+of the Middle Earth — Proje Raporu, Mimari Belge ve Sunum Kılavuzu</h1>
+<blockquote>
+<p><strong>Ders:</strong> Dağıtık Uygulama Geliştirme (Term Project) ·
+Not ağırlığı <strong>%30</strong><br />
+<strong>Teknoloji:</strong> Option B — <strong>Go + Kafka</strong>
+(Alternatif: Option A — Akka)<br />
+<strong>Repo:</strong>
+https://github.com/Keremmd/ring-of-the-middle-earth<br />
+<strong>Spesifikasyon:</strong>
+<code>TermProject_RingOfTheMiddleEarth.md</code> / PDF</p>
+</blockquote>
+<p>Bu dosya, <strong>oyun raporu</strong>, <strong>mimari belge</strong>
+(<code>ARCHITECTURE.md</code> ile birleştirilmiş) ve <strong>hocaya
+sunum</strong> için görsel rehberini tek yerde toplar. PDF’e dönüştürüp
+teslim edebilirsiniz.</p>
+<hr />
+<h2 id="içindekiler">İçindekiler</h2>
+<h3 id="bölüm-a-oyun-ve-proje-özeti">Bölüm A — Oyun ve Proje Özeti</h3>
+<ol type="1">
+<li><a href="#1-özet-ve-proje-hedefi">Özet ve Proje Hedefi</a></li>
+<li><a href="#2-oyun-konsepti-ve-kurallar">Oyun Konsepti ve
+Kurallar</a></li>
+<li><a href="#3-oyun-süresi-ve-tempo">Oyun Süresi ve Tempo</a></li>
+</ol>
+<h3 id="bölüm-b-sistem-mimarisi-architecture">Bölüm B — Sistem Mimarisi
+(Architecture)</h3>
+<ol start="4" type="1">
+<li><a href="#4-sistem-diyagramı">Sistem Diyagramı</a></li>
+<li><a href="#5-goroutine-mimarisi-ve-kanallar">Goroutine Mimarisi ve
+Kanallar</a></li>
+<li><a href="#6-kafka-mimarisi">Kafka Mimarisi</a></li>
+<li><a href="#7-bilgi-gizleme-eventrouter-ve-worldstatecache">Bilgi
+Gizleme: EventRouter ve WorldStateCache</a></li>
+<li><a href="#8-config-driven-tasarım">Config-Driven Tasarım</a></li>
+<li><a href="#9-hata-toleransı-ve-exactly-once">Hata Toleransı ve
+Exactly-Once</a></li>
+<li><a href="#10-paradigma-gerekçesi-go--kafka-vs-akka">Paradigma
+Gerekçesi: Go + Kafka vs Akka</a></li>
+<li><a href="#11-yansıma-reflection">Yansıma (Reflection)</a></li>
+</ol>
+<h3 id="bölüm-c-uygulama-ve-operasyon">Bölüm C — Uygulama ve
+Operasyon</h3>
+<ol start="12" type="1">
+<li><a href="#12-uygulama-detayları-ve-dizin-yapısı">Uygulama Detayları
+ve Dizin Yapısı</a></li>
+<li><a href="#13-kurulum-çalıştırma-ve-demo-senaryoları">Kurulum,
+Çalıştırma ve Demo Senaryoları</a></li>
+<li><a href="#14-değerlendirme-rubriği">Değerlendirme Rubriği</a></li>
+<li><a
+href="#15-karşılaşılan-zorluklar-ve-tasarım-kararları">Karşılaşılan
+Zorluklar ve Tasarım Kararları</a></li>
+<li><a href="#16-sonuç-ve-gelecek-iyileştirmeler">Sonuç ve Gelecek
+İyileştirmeler</a></li>
+</ol>
+<h3 id="ekler">Ekler</h3>
+<ol start="17" type="1">
+<li><a href="#17-llm-kullanım-günlüğü">LLM Kullanım Günlüğü</a></li>
+<li><a href="#18-rapor-görsel-rehberi">Rapor Görsel Rehberi</a></li>
+</ol>
+<hr />
+<h1 id="bölüm-a-oyun-ve-proje-özeti-1">Bölüm A — Oyun ve Proje
+Özeti</h1>
+<h2 id="özet-ve-proje-hedefi">1. Özet ve Proje Hedefi</h2>
+<p><strong>Ring of the Middle Earth</strong>, iki insan oyuncunun (Işık
+/ Karanlık) ayrı tarayıcılardan oynadığı, <strong>Kafka</strong> ile
+olay güdümlü ve <strong>Go</strong> ile oyun motoru yazılmış dağıtık bir
+strateji oyunudur.</p>
+<table>
+<thead>
+<tr>
+<th>Özellik</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Harita</td>
+<td>22 bölge, 37 yol</td>
+</tr>
+<tr>
+<td>Birim</td>
+<td>14 (JSON config)</td>
+</tr>
+<tr>
+<td>Tur süresi</td>
+<td>60 saniye</td>
+</tr>
+<tr>
+<td>Maksimum tur</td>
+<td>40 (beraberlik)</td>
+</tr>
+<tr>
+<td>Gizli başlangıç</td>
+<td>Tur 1–3 tespit kapalı</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Vanilla HTML/CSS/JS + SSE</td>
+</tr>
+<tr>
+<td>Motor</td>
+<td>Go 1.22, confluent-kafka-go, librdkafka</td>
+</tr>
+</tbody>
+</table>
+<p><strong>📷 Görsel 1 — Kapak:</strong> <code>MiddleEarthMap.svg</code>
+veya UI haritası + proje başlığı + GitHub QR/link.</p>
+<hr />
+<h2 id="oyun-konsepti-ve-kurallar">2. Oyun Konsepti ve Kurallar</h2>
+<h3 id="taraflar">2.1 Taraflar</h3>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 27%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Taraf</th>
+<th>URL</th>
+<th>Amaç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free Peoples (Işık)</strong></td>
+<td><code>?playerId=light</code></td>
+<td>Ring Bearer’ı Mount Doom’a götürüp Yüzüğü yok etmek</td>
+</tr>
+<tr>
+<td><strong>The Shadow (Karanlık)</strong></td>
+<td><code>?playerId=dark</code></td>
+<td>Ring Bearer’ı tespit edip yakalamak</td>
+</tr>
+</tbody>
+</table>
+<p>Mod: <strong>HVH</strong> (Human vs Human) — yapay zeka yok.</p>
+<p><strong>📷 Görsel 2:</strong> Işık ve Karanlık tarayıcıları yan yana,
+aynı <code>Turn X / 40</code>.</p>
+<h3 id="kazanma-koşulları">2.2 Kazanma koşulları</h3>
+<p><strong>Işık kazanır</strong> (tur sonu, üçü birden): - Ring Bearer
+<code>mount-doom</code> bölgesinde - <code>DESTROY_RING</code> emri
+verilmiş (uygulamada Mount Doom’da rota bitince
+<strong>otomatik</strong>) - <code>mount-doom</code>’da Karanlık birimi
+yok</p>
+<p><strong>Karanlık kazanır</strong> (tur sonu, ikisi birden): - Bir
+Nazgul, Ring Bearer ile aynı bölgede - Ring Bearer
+<code>exposed == true</code> (Nazgul menzili veya gözetimli yol)</p>
+<p><strong>Beraberlik:</strong> 40 tur, kazanan yok.</p>
+<p><strong>📷 Görsel 3–4:</strong> VICTORY / DEFEATED overlay + tam
+event log paneli.</p>
+<h3 id="bilgi-asimetrisi-kritik-gereksinim">2.3 Bilgi asimetrisi (kritik
+gereksinim)</h3>
+<ul>
+<li>Işık: Ring Bearer gerçek konumu <strong>her zaman</strong>
+görür.</li>
+<li>Karanlık: Konumu <strong>asla</strong> görmez; sadece
+<code>RingBearerDetected</code> / <code>RingBearerSpotted</code>.</li>
+<li><code>GET /game/state?playerId=dark</code> →
+<code>ring-bearer.region</code> = <code>""</code>.</li>
+</ul>
+<p>Tek enforcement: <code>EventRouter</code> +
+<code>WorldStateCache</code> + <code>stripRingBearer()</code>.</p>
+<p><strong>📷 Görsel 5, 21:</strong> Işık’ta konum görünür; Karanlık’ta
+<code>?</code>; <code>curl</code> ile API kanıtı.</p>
+<h3 id="harita-ve-dört-kanonik-rota">2.4 Harita ve dört kanonik
+rota</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Rota</th>
+<th>Bölgeler (özet)</th>
+<th>~Adım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Fellowship</td>
+<td>Shire → … → Cirith Ungol → Mount Doom</td>
+<td>13</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Northern Bypass</td>
+<td>Shire → … → Dead Marshes → …</td>
+<td>12</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Dark Route</td>
+<td>… → Mordor → Mount Doom</td>
+<td>12</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Southern Corridor</td>
+<td>Shire → Tharbad → … → Minas Morgul → …</td>
+<td>13</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strateji:</strong> 3 Nazgul ile kuzey ve güney koridoru aynı
+anda tam kapatılamaz — çekirdek gerilim.</p>
+<p><strong>📷 Görsel 6:</strong> Harita + legend + örnek rota oku.</p>
+<h3 id="birimler-ve-emirler">2.5 Birimler ve emirler</h3>
+<p>14 birim, <code>units.conf</code> — <strong>oyun kodunda birim ID
+yok</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Sınıf</th>
+<th>Örnekler</th>
+<th>Emirler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RingBearer</td>
+<td>ring-bearer</td>
+<td>ASSIGN_ROUTE, DESTROY_RING</td>
+</tr>
+<tr>
+<td>FellowshipGuard</td>
+<td>aragorn, legolas, gimli</td>
+<td>ATTACK, REINFORCE, rota</td>
+</tr>
+<tr>
+<td>Nazgul</td>
+<td>witch-king, nazgul-2/3</td>
+<td>DEPLOY, BLOCK, SEARCH</td>
+</tr>
+<tr>
+<td>Maia</td>
+<td>gandalf, saruman, sauron</td>
+<td>MAIA_ABILITY</td>
+</tr>
+</tbody>
+</table>
+<p><strong>📷 Görsel 7:</strong> Command Center — emir formu.</p>
+<h3 id="tur-işleme-13-adım">2.6 Tur işleme — 13 adım</h3>
+<p><code>game.ProcessTurn()</code> her 60 saniyede:</p>
+<ol type="1">
+<li>Emirleri topla → 2. Rota → 3. Blok/Ara → 4. Takviye/Nazgul → 5.
+Fortify → 6. Maia → 7. <strong>Otomatik hareket</strong> → 8. Savaş →
+9–11. Süreler → 12. <strong>Tespit</strong> → 13. <strong>Kazanma +
+snapshot</strong></li>
+</ol>
+<pre class="mermaid"><code>flowchart TD
+  S1[1-6: Emirler ve hazırlık] --&gt; S7[7: Otomatik ilerleme]
+  S7 --&gt; S8[8: Savaş]
+  S8 --&gt; S9[9-11: Sayaçlar]
+  S9 --&gt; S12[12: Tespit]
+  S12 --&gt; S13{13: Kazanma?}
+  S13 --&gt;|Evet| GO[GameOver + SSE + Kafka]
+  S13 --&gt;|Hayır| NEXT[Tur++ / WorldStateSnapshot]</code></pre>
+<p><strong>📷 Görsel 8:</strong> Bu akışın renkli diyagramı (PDF’e
+export).</p>
+<hr />
+<h2 id="oyun-süresi-ve-tempo">3. Oyun Süresi ve Tempo</h2>
+<table>
+<thead>
+<tr>
+<th>Parametre</th>
+<th>Değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tur</td>
+<td>60 sn</td>
+</tr>
+<tr>
+<td>Max tur</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Gizli tespit</td>
+<td>Tur 1–3 kapalı</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Tipik oyun: <strong>15–25 dk</strong></li>
+<li>Üst sınır: <strong>~40 dk</strong> (beraberlik)</li>
+<li>Sadece Ring Bearer yürüyüşü: <strong>~12–13 dk</strong></li>
+</ul>
+<hr />
+<h1 id="bölüm-b-sistem-mimarisi-architecture-1">Bölüm B — Sistem
+Mimarisi (Architecture)</h1>
+<h2 id="sistem-diyagramı">4. Sistem Diyagramı</h2>
+<p>Spesifikasyon ve uygulama: tarayıcı → Nginx → Go instance(lar) →
+Kafka cluster → Schema Registry.</p>
+<pre><code>┌────────────────────────────────────────────────────────────────────┐
+│                        BROWSER LAYER                               │
+│  Browser A (Light)                    Browser B (Dark)              │
+│  POST /order                          POST /order                   │
+│  GET  /events (SSE)                   GET  /events (SSE)            │
+│  GET  /analysis/routes                GET  /analysis/intercept      │
+│  GET  /game/state                     GET  /game/state                │
+└────────────────┬─────────────────────────────┬─────────────────────┘
+                 │ HTTP/SSE                     │
+                 ▼                             ▼
+┌───────────────────────────────────────────────────────────────────┐
+│                    NGINX LOAD BALANCER (:80)                        │
+│   Statik UI (ui/)  +  API proxy → go backend                        │
+│   [Demo: tek backend go-1 — Senaryo 3: go-2/3 fault tolerance]      │
+└─────────────────────────────┬─────────────────────────────────────┘
+                              ▼
+┌──────────────────────────────────────────────────────────────────┐
+│  go-1 (:8080)   go-2 (:8082)   go-3 (:8083)                       │
+│  Stateless uygulama katmanı · Kafka consumer group                  │
+└─────────────────────────────┬────────────────────────────────────┘
+                              │ Produce / Consume
+                              ▼
+┌──────────────────────────────────────────────────────────────────┐
+│              KAFKA CLUSTER (kafka-1, kafka-2, kafka-3)              │
+│  10 topic · Avro · Schema Registry :8081 · kafka-init (topic setup) │
+└──────────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="uygulama-notu-demo-kararı">Uygulama notu (demo kararı)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr>
+<th>Mod</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tasarım (spec)</strong></td>
+<td>3 Go instance, round-robin LB, consumer group rebalance</td>
+</tr>
+<tr>
+<td><strong>Demo stabilitesi</strong></td>
+<td>Nginx → yalnızca <code>go-1</code>; emirler <code>GameState</code>
+üzerinde tek writer</td>
+</tr>
+<tr>
+<td><strong>Fault tolerance</strong></td>
+<td><code>docker stop go-2</code> ile Senaryo 3; Kafka 3 broker
+ayakta</td>
+</tr>
+</tbody>
+</table>
+<p><strong>📷 Görsel 9:</strong> Yukarıdaki diyagramın draw.io versiyonu
+(renkli katmanlar).</p>
+<p><strong>📷 Görsel 10:</strong> <code>docker compose ps</code> — tüm
+servisler Healthy.</p>
+<hr />
+<h2 id="goroutine-mimarisi-ve-kanallar">5. Goroutine Mimarisi ve
+Kanallar</h2>
+<p><code>cmd/server/main.go</code> — spesifikasyon §28–31 ile
+uyumlu.</p>
+<pre><code>main()
+ │
+ ├── KafkaConsumer goroutine
+ │     Polls: orders.validated, broadcast, events.*, ring.position, ring.detection
+ │     → kafkaConsumerCh (buffered, cap=100)
+ │
+ ├── OrderValidator goroutine
+ │     Polls game.orders.raw
+ │     8 validation rules → validated | game.dlq
+ │
+ ├── Turn timer goroutine
+ │     time.Ticker(60s) → ProcessTurn (13 steps)
+ │     → Kafka produce + direct SSE broadcast
+ │
+ ├── Pipeline 1 — Route Risk (4 workers, workCh cap=20, timeout 2s)
+ ├── Pipeline 2 — Interception (4 workers, workCh cap=30, timeout 2s)
+ │
+ ├── SSE: per connected player (lightClients / darkClients)
+ ├── HTTP server (mux.Router)
+ │
+ └── Main select loop — 7 cases (spec §31)
+       kafkaConsumerCh | newConnection | disconnect | analysisRequest
+       cacheUpdateCh | heartbeat 60s | SIGINT/SIGTERM</code></pre>
+<h3 id="kanal-özeti">Kanal özeti</h3>
+<table>
+<thead>
+<tr>
+<th>Kanal</th>
+<th>Yön</th>
+<th>Buffer</th>
+<th>Amaç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kafkaConsumerCh</code></td>
+<td>Kafka → Router</td>
+<td>100</td>
+<td>Tüm Kafka mesajları</td>
+</tr>
+<tr>
+<td><code>LightSideSSECh</code></td>
+<td>Router → SSE</td>
+<td>100</td>
+<td>Işık olayları</td>
+</tr>
+<tr>
+<td><code>DarkSideSSECh</code></td>
+<td>Router → SSE</td>
+<td>100</td>
+<td>Karanlık (RB stripped)</td>
+</tr>
+<tr>
+<td><code>cacheUpdateCh</code></td>
+<td>Router → Cache</td>
+<td>100</td>
+<td>Dünya güncellemesi</td>
+</tr>
+<tr>
+<td><code>engineCh</code></td>
+<td>Router → Engine</td>
+<td>100</td>
+<td>Validated orders (legacy path)</td>
+</tr>
+<tr>
+<td>Pipeline <code>workCh</code></td>
+<td>Dispatcher → Worker</td>
+<td>20 / 30</td>
+<td>Analiz hesabı</td>
+</tr>
+<tr>
+<td>Pipeline <code>resultCh</code></td>
+<td>Worker → Aggregator</td>
+<td>0</td>
+<td>Sonuç toplama</td>
+</tr>
+</tbody>
+</table>
+<p><strong>📷 Görsel 13:</strong> Goroutine ağacı (flowchart veya
+ARCHITECTURE §2 şeması).</p>
+<hr />
+<h2 id="kafka-mimarisi">6. Kafka Mimarisi</h2>
+<h3 id="topic-tablosu-10-topic">6.1 Topic tablosu (10 topic)</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 22%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 16%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Partition key</th>
+<th>Part.</th>
+<th>Cleanup</th>
+<th>Retention</th>
+<th>Üreten</th>
+<th>Tüketen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>game.orders.raw</code></td>
+<td>playerId</td>
+<td>3</td>
+<td>delete</td>
+<td>1h</td>
+<td>POST /order</td>
+<td>OrderValidator</td>
+</tr>
+<tr>
+<td><code>game.orders.validated</code></td>
+<td>unitId</td>
+<td>6</td>
+<td>delete</td>
+<td>1h</td>
+<td>Validator / Topology 2</td>
+<td>Engine, Streams</td>
+</tr>
+<tr>
+<td><code>game.events.unit</code></td>
+<td>unitId</td>
+<td>6</td>
+<td>delete</td>
+<td>7d</td>
+<td>TurnTimer</td>
+<td>EventRouter</td>
+</tr>
+<tr>
+<td><code>game.events.region</code></td>
+<td>regionId</td>
+<td>6</td>
+<td>delete</td>
+<td>7d</td>
+<td>TurnTimer</td>
+<td>EventRouter</td>
+</tr>
+<tr>
+<td><code>game.events.path</code></td>
+<td>pathId</td>
+<td>6</td>
+<td>delete</td>
+<td>7d</td>
+<td>TurnTimer</td>
+<td>EventRouter</td>
+</tr>
+<tr>
+<td><code>game.session</code></td>
+<td>—</td>
+<td>1</td>
+<td><strong>compact</strong></td>
+<td>∞</td>
+<td>POST /game/start</td>
+<td>TurnKTable</td>
+</tr>
+<tr>
+<td><code>game.broadcast</code></td>
+<td>—</td>
+<td>1</td>
+<td>delete</td>
+<td>1h</td>
+<td>TurnTimer</td>
+<td>EventRouter → SSE</td>
+</tr>
+<tr>
+<td><code>game.ring.position</code></td>
+<td>—</td>
+<td>1</td>
+<td>delete</td>
+<td>1h</td>
+<td>TurnTimer</td>
+<td><strong>Sadece Işık SSE</strong></td>
+</tr>
+<tr>
+<td><code>game.ring.detection</code></td>
+<td>playerId</td>
+<td>2</td>
+<td>delete</td>
+<td>1h</td>
+<td>TurnTimer</td>
+<td><strong>Sadece Karanlık SSE</strong></td>
+</tr>
+<tr>
+<td><code>game.dlq</code></td>
+<td>errorCode</td>
+<td>3</td>
+<td>delete</td>
+<td>7d</td>
+<td>Validator</td>
+<td>Ops / debug</td>
+</tr>
+</tbody>
+</table>
+<h3 id="producer-consumer-diyagramı">6.2 Producer / Consumer
+diyagramı</h3>
+<pre><code>                    PRODUCERS                         CONSUMERS
+                    ─────────                         ─────────
+
+Browser             game.orders.raw  ──────►  OrderValidator (group: order-validator)
+(POST /order)                   │                      │
+                                │                      ▼
+                                │           game.orders.validated
+                                │            ├── TurnProcessor / GameState
+                                │            └── Topology 2 (routeRiskScore)
+                                │
+TurnTimer ──────────► game.broadcast        ──► EventRouter → SSE (both, RB stripped for Dark)
+                   ──► game.ring.position   ──► EventRouter → Light ONLY
+                   ──► game.ring.detection  ──► EventRouter → Dark ONLY
+                   ──► game.events.*        ──► EventRouter → both
+
+Topology 1 ─────────► validated | DLQ (8 rules)
+Topology 2 ─────────► validated + routeRiskScore enrichment</code></pre>
+<h3 id="topology-1-order-validation-8-kural">6.3 Topology 1 — Order
+Validation (8 kural)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Kural</th>
+<th>Error code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>order.turn</code> ≠ current turn</td>
+<td>WRONG_TURN</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Birim oyuncunun tarafına ait değil</td>
+<td>NOT_YOUR_UNIT</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ring Bearer: sonraki path BLOCKED</td>
+<td>PATH_BLOCKED</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Ring Bearer: path rotada değil</td>
+<td>INVALID_PATH</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Block/Search: birim endpoint’te değil</td>
+<td>UNIT_NOT_ADJACENT</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Attack: hedef komşu değil / dost bölge</td>
+<td>INVALID_TARGET</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Maia: cooldown &gt; 0</td>
+<td>ABILITY_ON_COOLDOWN</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Aynı unitId iki emir</td>
+<td>DUPLICATE_UNIT_ORDER</td>
+</tr>
+</tbody>
+</table>
+<p>Kod: <code>internal/game/validation.go</code> +
+<code>kafka/streams/topology1_order_validation.go</code></p>
+<h3 id="topology-2-route-risk-enrichment">6.4 Topology 2 — Route Risk
+Enrichment</h3>
+<p><code>ASSIGN_ROUTE</code> / <code>REDIRECT_UNIT</code> için:</p>
+<pre><code>routeRiskScore =
+    sum(region.threatLevel for destinations)
+  + sum(path.surveillanceLevel) * 3
+  + count(THREATENED) * 2
+  + count(BLOCKED) * 5
+  + nazgulProximityCount * 2</code></pre>
+<p><code>nazgulProximityCount</code> = rotadaki bölgelere 2 graph hop
+içindeki Nazgul sayısı.</p>
+<h3 id="avro-ve-şema-evrimi">6.5 Avro ve şema evrimi</h3>
+<p>13 <code>.avsc</code> dosyası — <code>kafka/schemas/</code>. Schema
+Registry: <code>http://localhost:8081</code>.</p>
+<p><strong>Demo (K3):</strong> <code>order_validated_v2.avsc</code> —
+nullable <code>routeRiskScore</code>; V1 consumer’lar çalışmaya devam
+eder.</p>
+<p><strong>📷 Görsel 11:</strong> <code>make topics</code> + Schema
+Registry ekranı.<br />
+<strong>📷 Görsel 12:</strong> DLQ’da <code>WRONG_TURN</code>
+örneği.</p>
+<hr />
+<h2 id="bilgi-gizleme-eventrouter-ve-worldstatecache">7. Bilgi Gizleme:
+EventRouter ve WorldStateCache</h2>
+<h3 id="eventrouter-tek-enforcement-noktası">7.1 EventRouter (tek
+enforcement noktası)</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> event<span class="op">.</span>Topic <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="st">&quot;game.ring.position&quot;</span><span class="op">:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    lightSideSSECh <span class="op">&lt;-</span> event          <span class="co">// Light Side ONLY</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="st">&quot;game.ring.detection&quot;</span><span class="op">:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    darkSideSSECh <span class="op">&lt;-</span> event           <span class="co">// Dark Side ONLY</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> <span class="st">&quot;game.broadcast&quot;</span><span class="op">:</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    lightSideSSECh <span class="op">&lt;-</span> event</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    darkSideSSECh <span class="op">&lt;-</span> stripRingBearer<span class="op">(</span>event<span class="op">)</span>  <span class="co">// ring-bearer.region = &quot;&quot;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> game<span class="op">.</span>events<span class="op">.</span>unit<span class="op">,</span> game<span class="op">.</span>events<span class="op">.</span>region<span class="op">,</span> game<span class="op">.</span>events<span class="op">.</span>path<span class="op">:</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    lightSideSSECh <span class="op">&lt;-</span> event</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    darkSideSSECh  <span class="op">&lt;-</span> event</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>stripRingBearer()</code>: JSON snapshot içinde
+<code>ring-bearer.region</code> → <code>""</code>.</p>
+<h3 id="worldstatecache">7.2 WorldStateCache</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> WorldStateCache <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    Turn<span class="op">,</span> Status<span class="op">,</span> Winner <span class="dt">int</span><span class="op">/</span><span class="dt">string</span> fields</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Units<span class="op">,</span> Regions<span class="op">,</span> Paths maps</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    LightView  <span class="op">{</span> RingBearerRegion<span class="op">,</span> AssignedRoute<span class="op">,</span> RouteIdx <span class="op">}</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    DarkView   <span class="op">{</span> RingBearerRegion <span class="dt">string</span> <span class="co">// ALWAYS &quot;&quot;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                 LastDetectedRegion<span class="op">,</span> LastDetectedTurn <span class="op">}</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Invariant:</strong> Her <code>Update()</code>,
+<code>Snapshot()</code>, <code>UpdateDetection()</code> sonunda
+<code>DarkView.RingBearerRegion = ""</code>.</p>
+<p><strong>Test:</strong> <code>tests/router_test.go</code> +
+<code>go test -race</code>.</p>
+<p><strong>📷 Görsel 14:</strong> <code>event_router.go</code> +
+<code>world_state.go</code> kod ekranı.</p>
+<hr />
+<h2 id="config-driven-tasarım">8. Config-Driven Tasarım</h2>
+<p>Spesifikasyon §3.1: <strong>Hiçbir birim ID oyun mantığında
+geçmez.</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">// YANLIŞ:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> unitID <span class="op">==</span> <span class="st">&quot;witch-king&quot;</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">// DOĞRU:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uc<span class="op">.</span>Class <span class="op">==</span> <span class="st">&quot;Nazgul&quot;</span> <span class="op">&amp;&amp;</span> u<span class="op">.</span>Status <span class="op">==</span> StatusActive <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Maia — aynı orderType, farklı etki (config.Side):</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uc<span class="op">.</span>Side <span class="op">==</span> <span class="st">&quot;FREE_PEOPLES&quot;</span> <span class="op">{</span> <span class="co">/* Gandalf: OpenPath */</span> <span class="op">}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> uc<span class="op">.</span>Side <span class="op">==</span> <span class="st">&quot;SHADOW&quot;</span> <span class="op">{</span> <span class="co">/* Saruman: CorruptPath */</span> <span class="op">}</span></span></code></pre></div>
+<p>Q&amp;A’da yeni birim eklemek için sadece <code>units.conf</code>
+gösterilebilir.</p>
+<hr />
+<h2 id="hata-toleransı-ve-exactly-once">9. Hata Toleransı ve
+Exactly-Once</h2>
+<h3 id="kafka-consumer-group-option-b">9.1 Kafka Consumer Group (Option
+B)</h3>
+<p>3 Go instance → tek consumer group
+<code>game-engine-group</code>.</p>
+<p><strong>Failure:</strong> 1. <code>docker stop go-2</code> 2. Kafka
+session timeout (~6s) → <strong>rebalance</strong> 3. Partition’lar go-1
+/ go-3’e geçer 4. Oyun devam eder (KTable / cache replay)</p>
+<p><strong>Recovery:</strong> 1. <code>docker start go-2</code> 2.
+Partition reassignment → offset replay → local view rebuild</p>
+<h3 id="ktable-state-tasarım-hedefi">9.2 KTable / state (tasarım
+hedefi)</h3>
+<table>
+<thead>
+<tr>
+<th>KTable</th>
+<th>Key</th>
+<th>İçerik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UnitKTable</td>
+<td>unitId</td>
+<td>Konum, strength, status</td>
+</tr>
+<tr>
+<td>RegionKTable</td>
+<td>regionId</td>
+<td>Control, fortify</td>
+</tr>
+<tr>
+<td>PathKTable</td>
+<td>pathId</td>
+<td>OPEN/BLOCKED, surveillance</td>
+</tr>
+<tr>
+<td>RingBearerKTable</td>
+<td>ring-bearer</td>
+<td>trueRegion (asla Dark’a açılmaz)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gameover-exactly-once">9.3 GameOver — exactly once</h3>
+<p>Producer: <code>enable.idempotence=true</code>,
+<code>acks=all</code>. Engine crash sonrası <code>game.broadcast</code>
+içinde <strong>tek</strong> GameOver kaydı (K6).</p>
+<p><strong>📷 Görsel 23–24:</strong> go-2 stopped +
+<code>make watch-broadcast</code> GameOver.</p>
+<hr />
+<h2 id="paradigma-gerekçesi-go-kafka-vs-akka">10. Paradigma Gerekçesi:
+Go + Kafka vs Akka</h2>
+<p>Hoca rubriği §39: paradigm justification — üç sorunun tamamı.</p>
+<h3 id="neden-go-kafka-bu-probleme-uygun">10.1 Neden Go + Kafka bu
+probleme uygun?</h3>
+<ol type="1">
+<li><p><strong>Goroutine’ler alt sistemlere map olur:</strong> Consumer,
+validator, turn timer, EventRouter, pipeline worker’lar — hafif
+eşzamanlılık, actor lifecycle yükü yok.</p></li>
+<li><p><strong>Kafka = state store → stateless uygulama
+katmanı:</strong> 3 Go instance değiştirilebilir; tur başına bir yazma,
+sık okuma (SSE, polling) için uygun.</p></li>
+<li><p><strong>Channel pipeline’ları:</strong> Route risk ve
+interception — 4 worker fan-out/fan-in; Go’da doğal
+(<code>sync.WaitGroup</code>, <code>context</code> timeout 2s).</p></li>
+<li><p><strong>Bilgi gizleme tek noktada:</strong> EventRouter switch —
+actor mesajlaşması yerine açık routing tablosu.</p></li>
+</ol>
+<h3 id="go-ile-gerçekten-zor-olan">10.2 Go ile gerçekten zor olan</h3>
+<ol type="1">
+<li><p><strong>State persistence:</strong> Akka Persistence
+journal/snapshot verir; Go’da her mutasyonun Kafka event’i olması
+gerekir; rebalance sırasında offset/KTable tutarlılığı dikkat
+ister.</p></li>
+<li><p><strong>Tip güvenli dispatch:</strong> <code>orderType</code>
+string switch; Akka sealed trait + typed <code>Behavior[T]</code> daha
+güvenli.</p></li>
+<li><p><strong>Tur atomikliği:</strong> 13 adım sırası — Go’da tek
+goroutine + mutex; ihlal riski spec okumasıyla sınırlı.</p></li>
+</ol>
+<h3 id="akka-en-zor-iki-parçayı-nasıl-çözerdi">10.3 Akka en zor iki
+parçayı nasıl çözerdi?</h3>
+<ol type="1">
+<li><p><strong>Turn processing:</strong> <code>WorldStateActor</code>
+Cluster Singleton — tüm mutable state tek mailbox’ta sıralı işlenir;
+mutex gerekmez.</p></li>
+<li><p><strong>Ring Bearer secrecy:</strong>
+<code>RingBearerActor</code> trueRegion tutar; shared topic’lere asla
+yazmaz — tip sınırıyla gizlilik.</p></li>
+</ol>
+<h3 id="karşılaştırma-tablosu">10.4 Karşılaştırma tablosu</h3>
+<table>
+<thead>
+<tr>
+<th>Boyut</th>
+<th>Go + Kafka (bu proje)</th>
+<th>Akka (Option A)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State yeri</td>
+<td>Broker + cache</td>
+<td>Actor memory + persistence</td>
+</tr>
+<tr>
+<td>Dağıtım</td>
+<td>Consumer group rebalance</td>
+<td>Cluster sharding</td>
+</tr>
+<tr>
+<td>Bilgi gizleme</td>
+<td>EventRouter strip</td>
+<td>Actor boundary</td>
+</tr>
+<tr>
+<td>Test</td>
+<td><code>go test -race</code></td>
+<td>Actor testkit</td>
+</tr>
+<tr>
+<td>Ops</td>
+<td>Kafka + Schema Registry</td>
+<td>Akka cluster</td>
+</tr>
+</tbody>
+</table>
+<p><strong>📷 Görsel 17:</strong> Bu tablonun infografik hali.</p>
+<hr />
+<h2 id="yansıma-reflection">11. Yansıma (Reflection)</h2>
+<blockquote>
+<p>Spesifikasyon minimum 300 kelime — aşağıdaki metin ARCHITECTURE.md §8
+ile birleştirilmiştir.</p>
+</blockquote>
+<p>En zorlu kısım <strong>bilgi asimetrisi</strong> oldu.
+<code>DarkView.RingBearerRegion</code> her zaman <code>""</code> olmalı
+— kulağa basit geliyor ama <code>Snapshot()</code>,
+<code>Update()</code>, <code>stripRingBearer()</code> ve SSE broadcast
+zincirinin <strong>her halkasında</strong> tekrar enforce edilmeli. Tek
+eksik atama spec ihlali. Çözüm: invariant olarak kodlamak;
+<code>router_test.go -race</code> ile concurrent erişimde
+doğrulamak.</p>
+<p><strong>13 adımlı tur işleme</strong> de beklenenden zorladı.
+Özellikle adım 3 (blok) ile adım 7 (auto-advance): bir path bu tur
+bloklanırsa, o path’i rotasında taşıyan birim ilerleyememeli. Akka’da
+her adım ayrı mesaj olurdu; Go’da <code>turn_processor.go</code> içinde
+sıralı fonksiyon çağrıları — daha basit ama spec’e sadakat
+gerektiriyor.</p>
+<p><strong>Config-driven dispatch</strong> tatmin ediciydi:
+<code>if unitID == "gandalf"</code> yasak;
+<code>uc.Class == "Maia" &amp;&amp; uc.Side == "FREE_PEOPLES"</code>
+zorunlu. Yeni Maia = yeni config satırı, sıfır kod.</p>
+<p>Yeniden tasarlasam: <strong>single-writer GameStateManager</strong>
+goroutine — tüm mutable state tek yerde; HTTP handler’lar sadece
+read-only snapshot alır. Şu an TurnTimer ve POST /order aynı
+<code>GameState</code>’e mutex ile erişiyor; çalışıyor ama ölçekte tek
+writer daha temiz.</p>
+<p><strong>📷 Görsel (opsiyonel):</strong> Reflection bölümü için ekip
+fotoğrafı veya mimari “lessons learned” kutusu.</p>
+<hr />
+<h1 id="bölüm-c-uygulama-ve-operasyon-1">Bölüm C — Uygulama ve
+Operasyon</h1>
+<h2 id="uygulama-detayları-ve-dizin-yapısı">12. Uygulama Detayları ve
+Dizin Yapısı</h2>
+<pre><code>ring-of-the-middle-earth/
+├── config/
+│   ├── units.conf          # 14 birim, tur ayarları
+│   └── map.conf            # 22 region, 37 path
+├── kafka/
+│   ├── schemas/*.avsc      # 13 Avro şema (+ v2 validated)
+│   └── streams/            # Topology 1 &amp; 2 (Go)
+├── option-b/
+│   ├── cmd/server/main.go  # Entrypoint, 7-case select
+│   ├── internal/
+│   │   ├── api/handlers.go # REST, SSE, Start/Reset
+│   │   ├── game/           # ProcessTurn, combat, detection
+│   │   ├── router/         # EventRouter
+│   │   ├── cache/          # WorldStateCache
+│   │   ├── pipeline/       # Route risk, interception
+│   │   ├── kafka/          # Producer, consumer
+│   │   └── graph/          # BFS, Dijkstra
+│   └── tests/              # combat, router -race, pipelines
+├── ui/                     # index.html, game.js, style.css
+├── docker-compose.yml
+├── nginx.conf
+├── Makefile
+├── ARCHITECTURE.md         # Kısa özet → bu dosyaya yönlendirir
+└── RAPOR_README.md         # ← Bu birleşik belge</code></pre>
+<h3 id="http-api">HTTP API</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 25%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/game/start</code></td>
+<td>Başlat / <strong>sıfırla</strong> (InitState + cache reset)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/order</code></td>
+<td>Emir (validate + GameState + Kafka raw)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/game/state</code></td>
+<td>Snapshot; RB gizleme</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/orders/available</code></td>
+<td>İzinli emir tipleri</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/analysis/routes</code></td>
+<td>Işık — Pipeline 1</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/analysis/intercept</code></td>
+<td>Karanlık — Pipeline 2</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/events</code></td>
+<td>SSE</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/health</code></td>
+<td>Health</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ui-özellikleri">UI özellikleri</h3>
+<ul>
+<li>Dark fantasy tema, 3 sütun layout, SSE canlı log</li>
+<li><strong>Reset Game</strong> / <strong>Start Game</strong> /
+<strong>Play Again</strong></li>
+<li>Oyun sonu: VICTORY/DEFEATED + <strong>tüm event log geçmişi</strong>
+(scroll)</li>
+</ul>
+<p><strong>📷 Görsel 15–16:</strong> Analysis panelleri.<br />
+<strong>📷 Görsel 18:</strong> Tam UI.<br />
+<strong>📷 Görsel 19:</strong> <code>make test</code> PASS çıktısı.</p>
+<hr />
+<h2 id="kurulum-çalıştırma-ve-demo-senaryoları">13. Kurulum, Çalıştırma
+ve Demo Senaryoları</h2>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Keremmd/ring-of-the-middle-earth.git</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ring-of-the-middle-earth</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> up</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Taraf</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http://localhost/?playerId=light</td>
+<td>Işık</td>
+</tr>
+<tr>
+<td>http://localhost/?playerId=dark</td>
+<td>Karanlık</td>
+</tr>
+<tr>
+<td>http://localhost:8081</td>
+<td>Schema Registry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Yeni sekme eski tur gösterir</strong> → <strong>Reset
+Game</strong> (sunucu state sıfırlanır).</p>
+<h3 id="demo-15-dk-5-dk-qa-40">Demo — 15 dk + 5 dk Q&amp;A (§40)</h3>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 21%" />
+<col style="width: 32%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Süre</th>
+<th>Senaryo</th>
+<th>Beklenen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5 dk</td>
+<td>Bilgi gizleme</td>
+<td>Dark: DETECTED; Light: yok; API <code>region:""</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>5 dk</td>
+<td>Maia + path</td>
+<td>Gandalf TEMP_OPEN; Saruman corrupt; block revert</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5 dk</td>
+<td>Fault tolerance</td>
+<td>stop go-2, rebalance, GameOver once</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Örnek oyun (rapor/demo):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Sonuç</th>
+<th>Işık</th>
+<th>Karanlık</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Işık kazanır</td>
+<td>Güney rotası, Nazgul kuzeyde</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Karanlık kazanır</td>
+<td>Kısa kuzey rotası</td>
+<td>Nazgul → moria, rivendell</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="değerlendirme-rubriği">14. Değerlendirme Rubriği</h2>
+<h3 id="kafka-30-puan">Kafka — 30 puan</h3>
+<table>
+<thead>
+<tr>
+<th>Kod</th>
+<th>Pts</th>
+<th>Kanıt</th>
+<th>Görsel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K1</td>
+<td>3</td>
+<td>10 topic describe</td>
+<td>11</td>
+</tr>
+<tr>
+<td>K2</td>
+<td>4</td>
+<td>Schema Registry</td>
+<td>11</td>
+</tr>
+<tr>
+<td>K3</td>
+<td>4</td>
+<td>V2 evolution live</td>
+<td>11</td>
+</tr>
+<tr>
+<td>K4</td>
+<td>10</td>
+<td>8 rules → DLQ</td>
+<td>12</td>
+</tr>
+<tr>
+<td>K5</td>
+<td>4</td>
+<td>routeRiskScore</td>
+<td>15</td>
+</tr>
+<tr>
+<td>K6</td>
+<td>5</td>
+<td>GameOver once</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+<h3 id="option-b-go-70-puan">Option B — Go — 70 puan</h3>
+<table>
+<thead>
+<tr>
+<th>Kod</th>
+<th>Pts</th>
+<th>Kanıt</th>
+<th>Görsel / Bölüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td>8</td>
+<td>No unit ID in logic</td>
+<td>§8, 7</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>8</td>
+<td>3 instance rebalance</td>
+<td>§9, 23</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>7</td>
+<td>combat_test</td>
+<td>19</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>5</td>
+<td>Detection + hidden 3</td>
+<td>§2, 4</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>5</td>
+<td>Maia dispatch</td>
+<td>Demo 2, 22</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>5</td>
+<td>Block revert</td>
+<td>Demo 2</td>
+</tr>
+<tr>
+<td>B7</td>
+<td>8</td>
+<td>EventRouter -race</td>
+<td>§7, 14, 19</td>
+</tr>
+<tr>
+<td>B8</td>
+<td>7</td>
+<td>Pipeline 1/2</td>
+<td>§6, 15–16, 19</td>
+</tr>
+<tr>
+<td>B9</td>
+<td>5</td>
+<td>7-case select</td>
+<td>§5, 13</td>
+</tr>
+<tr>
+<td>B10</td>
+<td>7</td>
+<td>HVH end-to-end</td>
+<td>3–4, 18</td>
+</tr>
+<tr>
+<td>B11</td>
+<td>5</td>
+<td>Architecture / bu rapor</td>
+<td>Tüm Bölüm B</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="karşılaşılan-zorluklar-ve-tasarım-kararları">15. Karşılaşılan
+Zorluklar ve Tasarım Kararları</h2>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Sorun</th>
+<th>Çözüm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3 Go instance, state dağınık</td>
+<td>Demo: Nginx → go-1; emirler tek GameState</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ARM64 Kafka AdminClient SIGSEGV</td>
+<td>Topic oluşturma <code>kafka-init</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Producer flush yok, SSE boş</td>
+<td>Tur sonu doğrudan SSE + Flush(500)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Kafka order gecikmesi</td>
+<td>POST /order → doğrudan <code>gs.Orders</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Mount Doom UX</td>
+<td>Otomatik DESTROY_RING</td>
+</tr>
+<tr>
+<td>6</td>
+<td>CSS text/plain</td>
+<td>nginx <code>mime.types</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Yeni sekme Turn 6</td>
+<td>Reset Game + cache.Reset()</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sonuç-ve-gelecek-iyileştirmeler">16. Sonuç ve Gelecek
+İyileştirmeler</h2>
+<p>Proje; <strong>HVH oyun</strong>, <strong>Kafka event
+backbone</strong>, <strong>bilgi asimetrisi</strong>, <strong>13 adımlı
+tur</strong>, <strong>config-driven birimler</strong>, <strong>goroutine
++ channel pipeline</strong> ve <strong>rubrik demo
+senaryolarını</strong> karşılayan çalışan bir sistem sunar.</p>
+<p><strong>Gelecek:</strong> Redis/shared state topic; tam 3-instance
+active-active; embedded Kafka Streams; tur geri sayım UI.</p>
+<hr />
+<h2 id="llm-kullanım-günlüğü">17. LLM Kullanım Günlüğü</h2>
+<p>Spesifikasyon eki — ARCHITECTURE.md §9 ile aynı.</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 22%" />
+<col style="width: 37%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Konu</th>
+<th>Kullanım</th>
+<th>Sonuç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>KTable rebalance semantics</td>
+<td>Anlama</td>
+<td>Mimari §9’da sadeleştirildi</td>
+</tr>
+<tr>
+<td>2</td>
+<td>enable.idempotence</td>
+<td>GameOver garantisi</td>
+<td>Kafka 3.6 dokümanı ile doğrulandı</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Akka vs Kafka tradeoffs</td>
+<td>Paradigma §10</td>
+<td>Kendi cümlelerimle yeniden yazıldı</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Go fan-out pipeline</td>
+<td>Pipeline 1/2</td>
+<td>Buffer cap spec’e göre ayarlandı</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Information hiding in Go</td>
+<td>WorldStateCache</td>
+<td>Her mutation’da <code>""</code> enforce</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="rapor-görsel-rehberi">18. Rapor Görsel Rehberi</h2>
+<h3 id="önerilen-pdf-sayfa-planı-1822-sayfa">Önerilen PDF sayfa planı
+(≈18–22 sayfa)</h3>
+<table>
+<thead>
+<tr>
+<th>Sayfa</th>
+<th>İçerik</th>
+<th>Görseller</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Kapak</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>İçindekiler</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3–4</td>
+<td>Bölüm A: Oyun özeti</td>
+<td>2, 6</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Kazanma + bilgi gizleme</td>
+<td>3, 4, 5</td>
+</tr>
+<tr>
+<td>6–7</td>
+<td>Tur işleme + süre</td>
+<td>8</td>
+</tr>
+<tr>
+<td>8–10</td>
+<td>Bölüm B: Sistem + goroutine + Kafka</td>
+<td>9, 10, 11, 13</td>
+</tr>
+<tr>
+<td>11</td>
+<td>EventRouter + config</td>
+<td>14</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Fault tolerance + paradigm</td>
+<td>17, 23, 24</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Reflection</td>
+<td>opsiyonel</td>
+</tr>
+<tr>
+<td>14–15</td>
+<td>Bölüm C: Uygulama + UI</td>
+<td>18, 15, 16</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Test + kurulum</td>
+<td>19, 20</td>
+</tr>
+<tr>
+<td>17–18</td>
+<td>Demo senaryoları</td>
+<td>21, 22</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Rubrik özeti tablo</td>
+<td>—</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Zorluklar + sonuç</td>
+<td>25</td>
+</tr>
+<tr>
+<td>21–22</td>
+<td>LLM log + ekler</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="görsel-envanteri-28-öneri">Görsel envanteri (28 öneri)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Açıklama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Kapak haritası</td>
+</tr>
+<tr>
+<td>2</td>
+<td>İki tarayıcı yan yana</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Işık VICTORY + event log</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Karanlık VICTORY / Işık DEFEATED</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Bilgi gizleme üçlü kanıt</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Strateji haritası + rota</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Command Center emir</td>
+</tr>
+<tr>
+<td>8</td>
+<td>13 adım flowchart</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Sistem mimarisi diyagramı</td>
+</tr>
+<tr>
+<td>10</td>
+<td>docker compose ps</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Kafka topics + Schema Registry</td>
+</tr>
+<tr>
+<td>12</td>
+<td>DLQ WRONG_TURN</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Goroutine şeması</td>
+</tr>
+<tr>
+<td>14</td>
+<td>event_router.go kodu</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Route Risk panel</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Intercept Plans panel</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Go vs Akka tablosu</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Tam UI screenshot</td>
+</tr>
+<tr>
+<td>19</td>
+<td>go test -race PASS</td>
+</tr>
+<tr>
+<td>20</td>
+<td>GitHub repo</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Demo senaryo 1</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Demo senaryo 2 (path renkleri)</td>
+</tr>
+<tr>
+<td>23</td>
+<td>go-2 stopped</td>
+</tr>
+<tr>
+<td>24</td>
+<td>GameOver Kafka consumer</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Zorluklar infografik (opsiyonel)</td>
+</tr>
+</tbody>
+</table>
+<p>Görselleri <code>rapor/img/01-kapak.png</code> … şeklinde
+kaydedin.</p>
+<h3 id="kapak-şablonu">Kapak şablonu</h3>
+<pre><code>[ÜNİVERSİTE ADI]
+Dağıtık Uygulama Geliştirme — Dönem Projesi
+
+RING OF THE MIDDLE EARTH
+Kafka ve Go ile Dağıtık Strateji Oyunu
+Mimari Rapor ve Canlı Demo
+
+Öğrenci: ___________________
+Öğrenci No: _________________
+Tarih: Mayıs 2026
+
+GitHub: https://github.com/Keremmd/ring-of-the-middle-earth</code></pre>
+<h3 id="pdf-oluşturma">PDF oluşturma</h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pandoc örneği (Mac):</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ring-of-the-middle-earth</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> RAPOR_README.md <span class="at">-o</span> RAPOR.pdf <span class="at">--toc</span> <span class="at">--toc-depth</span><span class="op">=</span>3 <span class="at">-V</span> geometry:margin=2.5cm</span></code></pre></div>
+<p>Veya VS Code eklentisi: <strong>Markdown PDF</strong>.</p>
+<hr />
+<p><em>Bu belge <code>ARCHITECTURE.md</code> ile birleştirilmiş tek
+kaynak belgedir. Kısa teknik özet: <code>ARCHITECTURE.md</code> · Hızlı
+başlangıç: <code>README.md</code>.</em></p>
+</body>
+</html>
